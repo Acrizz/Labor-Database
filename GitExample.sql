@@ -5,9 +5,9 @@ SET NOCOUNT ON;
 
 
 ---Drop Table Statements 
-IF OBJECT_ID ('TJobMaterials')		IS NOT NULL DROP TABLE TJobMaterials
-IF OBJECT_ID ('TJobWorkers')		IS NOT NULL DROP TABLE TJobWorkers  
-IF OBJECT_ID ('TWorkerSkills')		IS NOT NULL DROP TABLE TWorkerSkills
+IF OBJECT_ID ('TJobMaterials')			IS NOT NULL DROP TABLE TJobMaterials
+IF OBJECT_ID ('TJobWorkers')			IS NOT NULL DROP TABLE TJobWorkers  
+IF OBJECT_ID ('TWorkerSkills')			IS NOT NULL DROP TABLE TWorkerSkills
 IF OBJECT_ID ('TJobs')				IS NOT NULL DROP TABLE TJobs
 IF OBJECT_ID ('TCustomers')			IS NOT NULL DROP TABLE TCustomers
 IF OBJECT_ID ('TStatuses')			IS NOT NULL DROP TABLE TStatuses
@@ -26,13 +26,13 @@ IF OBJECT_ID ('TSkills')			IS NOT NULL DROP TABLE TSkills
 
 CREATE TABLE TJobs
 (
-	 intJobID							INTEGER				NOT NULL
+	 intJobID						INTEGER				NOT NULL
 	,intCustomerID						INTEGER				NOT NULL
 	,intStatusID						INTEGER				NOT NULL
 	,dtmStartDate						DATETIME			NOT NULL
-	,dtmEndDate							DATETIME			NOT NULL
-	,strJobDesc							VARCHAR(2000)		NOT NULL
-	,CONSTRAINT TJobs_PK				PRIMARY KEY ( intJobID )
+	,dtmEndDate						DATETIME			NOT NULL
+	,strJobDesc						VARCHAR(2000)		NOT NULL
+	,CONSTRAINT TJobs_PK					PRIMARY KEY ( intJobID )
 )
 
 
@@ -42,9 +42,9 @@ CREATE TABLE TCustomers
 	 ,strFirstName						VARCHAR(50)			NOT NULL
 	 ,strLastName						VARCHAR(50)			NOT NULL
 	 ,strAddress						VARCHAR(50)			NOT NULL
-	 ,strCity							VARCHAR(50)			NOT NULL
-	 ,strState							VARCHAR(50)			NOT NULL
-	 ,strZip							VARCHAR(50)			NOT NULL
+	 ,strCity						VARCHAR(50)			NOT NULL
+	 ,strState						VARCHAR(50)			NOT NULL
+	 ,strZip						VARCHAR(50)			NOT NULL
 	 ,strPhoneNumber					VARCHAR(50)			NOT NULL
 	 ,CONSTRAINT TCustomer_PK			PRIMARY KEY ( intCustomerID )
 )
@@ -53,47 +53,47 @@ CREATE TABLE TCustomers
 CREATE TABLE TStatuses
 (
 	 intStatusID						INTEGER				NOT NULL
-	,strStatus							VARCHAR(50)			NOT NULL
+	,strStatus						VARCHAR(50)			NOT NULL
 	,CONSTRAINT TStatuses_PK			PRIMARY KEY ( intStatusID )
 )
 
 CREATE TABLE TJobMaterials
 (
 	 intJobMaterialID					INTEGER				NOT NULL
-	,intJobID							INTEGER				NOT NULL
+	,intJobID						INTEGER				NOT NULL
 	,intMaterialID						INTEGER				NOT NULL
 	,intQuantity						INTEGER				NOT NULL
-	,CONSTRAINT TCustomerJobMaterials_PK PRIMARY KEY ( intJobMaterialID )
+	,CONSTRAINT TCustomerJobMaterials_PK 			PRIMARY KEY ( intJobMaterialID )
 )
 
 CREATE TABLE TMaterials
 (
 	 intMaterialID						INTEGER				NOT NULL
 	,strDescription						VARCHAR(100)		NOT NULL
-	,monCost							MONEY				NOT NULL
+	,monCost						MONEY				NOT NULL
 	,intVendorID						INTEGER				NOT NULL
-	,CONSTRAINT TMaterials_PK			PRIMARY KEY ( intMaterialID )
+	,CONSTRAINT TMaterials_PK				PRIMARY KEY ( intMaterialID )
 )
 
 CREATE TABLE TVendors
 (
 	 intVendorID						INTEGER				NOT NULL
 	,strVendorName						VARCHAR(50)			NOT NULL
-	,strAddress							VARCHAR(50)			NOT NULL
-	,strCity							VARCHAR(50)			NOT NULL
-	,strState							VARCHAR(50)			NOT NULL
-	,strZip								VARCHAR(50)			NOT NULL
+	,strAddress						VARCHAR(50)			NOT NULL
+	,strCity						VARCHAR(50)			NOT NULL
+	,strState						VARCHAR(50)			NOT NULL
+	,strZip							VARCHAR(50)			NOT NULL
 	,strPhoneNumber						VARCHAR(50)			NOT NULL
-	,CONSTRAINT TVendors_PK				PRIMARY KEY ( intVendorID )
+	,CONSTRAINT TVendors_PK					PRIMARY KEY ( intVendorID )
 )
 
 CREATE TABLE TJobWorkers
 (
 	 intJobWorkerID						INTEGER				NOT NULL
-	,intJobID							INTEGER				NOT NULL
+	,intJobID						INTEGER				NOT NULL
 	,intWorkerID						INTEGER				NOT NULL
 	,intHoursWorked						INTEGER				NOT NULL
-	,CONSTRAINT TCustomerJobWorkers_PK	PRIMARY KEY ( intJobWorkerID )
+	,CONSTRAINT TCustomerJobWorkers_PK			PRIMARY KEY ( intJobWorkerID )
 )
 
 CREATE TABLE TWorkers
@@ -102,29 +102,29 @@ CREATE TABLE TWorkers
 	 ,strFirstName						VARCHAR(50)			NOT NULL
 	 ,strLastName						VARCHAR(50)			NOT NULL
 	 ,strAddress						VARCHAR(50)			NOT NULL
-	 ,strCity							VARCHAR(50)			NOT NULL
-	 ,strState							VARCHAR(50)			NOT NULL
-	 ,strZip							VARCHAR(50)			NOT NULL
+	 ,strCity						VARCHAR(50)			NOT NULL
+	 ,strState						VARCHAR(50)			NOT NULL
+	 ,strZip						VARCHAR(50)			NOT NULL
 	 ,strPhoneNumber					VARCHAR(50)			NOT NULL
 	 ,dtmHireDate						DATETIME			NOT NULL
 	 ,monHourlyRate						MONEY				NOT NULL
-	 ,CONSTRAINT TWorkers_PK			PRIMARY KEY ( intWorkerID )
+	 ,CONSTRAINT TWorkers_PK				PRIMARY KEY ( intWorkerID )
 )
 
 CREATE TABLE TWorkerSkills
 (
 	 intWorkerSkillID					INTEGER				NOT NULL
 	,intWorkerID						INTEGER				NOT NULL
-	,intSkillID							INTEGER				NOT NULL
-	,CONSTRAINT	TWorkerSkills_PK		PRIMARY KEY ( intWorkerSkillID )
+	,intSkillID						INTEGER				NOT NULL
+	,CONSTRAINT	TWorkerSkills_PK			PRIMARY KEY ( intWorkerSkillID )
 )
 
 CREATE TABLE TSkills
 (
-	 intSkillID							INTEGER				NOT NULL
-	,strSkill							VARCHAR(50)			NOT NULL
+	 intSkillID						INTEGER				NOT NULL
+	,strSkill						VARCHAR(50)			NOT NULL
 	,strDescription						VARCHAR(100)		NOT NULL
-	,CONSTRAINT TSkills_PK				PRIMARY KEY ( intSkillID )
+	,CONSTRAINT TSkills_PK					PRIMARY KEY ( intSkillID )
 )
 
 
@@ -133,17 +133,17 @@ CREATE TABLE TSkills
 --Create Relationships & Foreign Keys
 	---------------------------------------------------------
 	
---		Child													Parent						Column
---      -----													------					---------
----  1	TJobs													TCustomers				intCustomerID
----	 2  TJobs													TStatuses				intStatusID
----  3  TJobMaterials											TJobs					intJobID
----- 4	TJobMaterials											TMaterials				intMaterialID
------5	TMaterials												TVendors				intVendorID
------6  TJobWorkers												TJobs					intJobID
----- 7	TJobWorkers												TWorkers				intWorkerID
------8	TWorkerSkills											TWorkers				intWorkerID
------9  TWorkerSkills											TSkills					intSkillID
+--		Child							Parent					Column
+--      -----								------					---------
+---  1	TJobs								TCustomers				intCustomerID
+---  2  TJobs								TStatuses				intStatusID
+---  3  TJobMaterials							TJobs					intJobID
+---- 4	TJobMaterials							TMaterials				intMaterialID
+-----5	TMaterials							TVendors				intVendorID
+-----6  TJobWorkers							TJobs					intJobID
+---- 7	TJobWorkers							TWorkers				intWorkerID
+-----8	TWorkerSkills							TWorkers				intWorkerID
+-----9  TWorkerSkills							TSkills					intSkillID
 
 
 ----Alter Statements
