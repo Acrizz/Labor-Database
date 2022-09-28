@@ -31,7 +31,7 @@ CREATE TABLE TJobs
 	,intStatusID						INTEGER				NOT NULL
 	,dtmStartDate						DATETIME			NOT NULL
 	,dtmEndDate						DATETIME			NOT NULL
-	,strJobDesc						VARCHAR(2000)		NOT NULL
+	,strJobDesc						VARCHAR(2000)			NOT NULL
 	,CONSTRAINT TJobs_PK					PRIMARY KEY ( intJobID )
 )
 
@@ -69,7 +69,7 @@ CREATE TABLE TJobMaterials
 CREATE TABLE TMaterials
 (
 	 intMaterialID						INTEGER				NOT NULL
-	,strDescription						VARCHAR(100)		NOT NULL
+	,strDescription						VARCHAR(100)			NOT NULL
 	,monCost						MONEY				NOT NULL
 	,intVendorID						INTEGER				NOT NULL
 	,CONSTRAINT TMaterials_PK				PRIMARY KEY ( intMaterialID )
